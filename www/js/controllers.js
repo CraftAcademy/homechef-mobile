@@ -53,4 +53,14 @@ angular.module('homechef.controllers', [])
 })
 
 .controller('PlaylistCtrl', function($scope, $stateParams) {
+})
+
+.controller('StripeCtrl', function($scope, $stateParams) {
+  $scope.stripeCallback = function (code, result) {
+    if (result.error) {
+        window.alert('it failed! error: ' + result.error.message);
+    } else {
+        console.log(result);
+    }
+  };
 });
