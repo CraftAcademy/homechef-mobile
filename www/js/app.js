@@ -4,23 +4,35 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'homechef.controllers' is found in controllers.js
-angular.module('homechef', ['ionic', 'homechef.controllers'])
+angular.module('homechef', ['ionic', 'homechef.controllers', 'ng-token-auth', 'angularPayments', 'ngResource'])
+  .constant ('API_URL', 'https://homechefs.herokuapp.com//api/v1')
 
-.run(function($ionicPlatform) {
-  $ionicPlatform.ready(function() {
-    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
-    // for form inputs)
-    if (window.cordova && window.cordova.plugins.Keyboard) {
-      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-      cordova.plugins.Keyboard.disableScroll(true);
+  .config(function ($authProvider, API_URL) {
+    $authProvider.configure({
+      apiUrl: API_URL
+    });
+  })
 
-    }
-    if (window.StatusBar) {
-      // org.apache.cordova.statusbar required
-      StatusBar.styleDefault();
-    }
-  });
-})
+  .run(function($ionicPlatform) {
+    $ionicPlatform.ready(function() {
+      // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+      // for form inputs)
+      if (window.cordova && window.cordova.plugins.Keyboard) {
+        cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+        cordova.plugins.Keyboard.disableScroll(true);
+
+      }
+
+      if (window.StatusBar) {
+        // org.apache.cordova.statusbar required
+        StatusBar.styleDefault();
+      }
+    });
+  })
+
+  .config(function() {
+    window.Stripe.setPublishableKey('pk_test_zwRGTjpna9y7M4qoIOi6qL31');
+  })
 
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
@@ -39,6 +51,12 @@ angular.module('homechef', ['ionic', 'homechef.controllers'])
           templateUrl: 'templates/about/about.html'
         }
       }
+  })
+
+  .state('payment', {
+      url: '/payment',
+      templateUrl: 'templates/stripe_payment.html',
+      controller: 'StripeCtrl'
   });
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/app/about');
