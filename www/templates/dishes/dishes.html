@@ -17,7 +17,7 @@
               <p>{{entry.portions}} portions left </p>
               <button class="button button-full button-calm"
                 ng-controller="ordersCtrl"
-                ng-click="addDish(entry.id)">Add dish to order
+                ng-click="addDish($scope.entry.id)">Add dish to order
               </button>
             </div>
           </div>

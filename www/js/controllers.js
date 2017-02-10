@@ -138,13 +138,16 @@ angular.module('homechef.controllers', [])
     };
   })
 
-  .controller('ordersCtrl', function ($scope, $ionicLoading) {
+  .controller('ordersCtrl', function ($scope, $ionicLoading, orderService) {
 
-    $scope.addDish = function (dish) {
+    $scope.addDish = function (dishID) {
       $ionicLoading.show({
         template: 'Added to order',
         duration: 1000
       });
+      orderService.query(function (dishID) {
+
+      })
     }
   })
 
