@@ -142,12 +142,21 @@ angular.module('homechef.controllers', [])
 
     $scope.addDish = function (dishID) {
       $ionicLoading.show({
-        template: 'Added to order',
-        duration: 1000
+        template: 'Adding to order'
       });
-      orderService.query(function (dishID) {
-
-      })
+      orderService.save({dish_id: dishID})
+        .then(function (resp) {
+          $ionicLoading.hide();
+          $ionicLoading.show({
+            template: resp,
+            duration: 1000
+          });
+        })
+        .catch(function (response) {
+          $ionicLoading.hide();
+          $scope.errorMessage = response;
+          $scope.showAlert('Failure', response.data.errors.full_messages);
+        });
     }
   })
 

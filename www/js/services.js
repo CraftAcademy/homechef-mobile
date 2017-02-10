@@ -10,9 +10,5 @@ angular.module('homechef.services', [])
 })
 
 .factory('orderService', function ($resource, API_URL) {
-  return $resource(API_URL + '/orders', {
-    query: {
-      method: "POST"
-    }
-  });
+  return $resource(API_URL + '/orders', {});
 });
