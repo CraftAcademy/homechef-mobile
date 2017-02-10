@@ -138,5 +138,15 @@ angular.module('homechef.controllers', [])
     };
   })
 
+  .controller('ordersCtrl', function ($scope, $ionicLoading) {
+
+    $scope.addDish = function (dish) {
+      $ionicLoading.show({
+        template: 'Added to order',
+        duration: 1000
+      });
+    }
+  })
+
   .controller('displayDishCtrl', function ($scope, $stateParams) {
   });
