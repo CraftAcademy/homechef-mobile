@@ -139,24 +139,20 @@ angular.module('homechef.controllers', [])
   })
 
   .controller('ordersCtrl', function ($scope, $ionicLoading, orderService) {
-
     $scope.addDish = function (dishID) {
       $ionicLoading.show({
         template: 'Adding to order'
       });
-      orderService.save({dish_id: dishID})
-        .then(function (resp) {
-          $ionicLoading.hide();
-          $ionicLoading.show({
-            template: resp,
-            duration: 1000
-          });
-        })
-        .catch(function (response) {
-          $ionicLoading.hide();
-          $scope.errorMessage = response;
-          $scope.showAlert('Failure', response.data.errors.full_messages);
+      orderService.save({dish_id: dishID}, function (response) {
+        $ionicLoading.hide();
+        $ionicLoading.show({
+          template: (response.message),
+          duration: 1000
         });
+      }, function (error) {
+        $ionicLoading.hide();
+        $scope.showAlert('Failure', error.statusText)
+      })
     }
   })
 
