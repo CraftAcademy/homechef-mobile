@@ -138,5 +138,23 @@ angular.module('homechef.controllers', [])
     };
   })
 
+  .controller('ordersCtrl', function ($scope, $ionicLoading, orderService) {
+    $scope.addDish = function (dishID) {
+      $ionicLoading.show({
+        template: 'Adding to order'
+      });
+      orderService.save({dish_id: dishID}, function (response) {
+        $ionicLoading.hide();
+        $ionicLoading.show({
+          template: (response.message),
+          duration: 1000
+        });
+      }, function (error) {
+        $ionicLoading.hide();
+        $scope.showAlert('Failure', error.statusText)
+      })
+    }
+  })
+
   .controller('displayDishCtrl', function ($scope, $stateParams) {
   });

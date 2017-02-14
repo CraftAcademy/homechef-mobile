@@ -15,8 +15,9 @@
               <p>Ready for pick-up at {{entry.ready_time | date:'H:mm on EEEE, MMM d'}} </p>
               <p>Price: ${{entry.price}}</p>
               <p>{{entry.portions}} portions left </p>
-              <button class="button button-full button-calm">
-                Add dish to order
+              <button class="button button-full button-calm"
+                ng-controller="ordersCtrl"
+                ng-click="addDish(entry.id)">Add dish to order
               </button>
             </div>
           </div>

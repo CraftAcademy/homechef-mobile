@@ -7,4 +7,8 @@ angular.module('homechef.services', [])
       isArray: false
     }
   });
+})
+
+.factory('orderService', function ($resource, API_URL) {
+  return $resource(API_URL + '/orders', {});
 });
